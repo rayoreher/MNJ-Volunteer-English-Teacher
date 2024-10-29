@@ -31,7 +31,7 @@ export default function Home() {
         <Board />
       </main>
       <div>
-        <h2>🚀 Create your own game</h2>
+        <h2>🚀 Create your own game chezzz</h2>
         <p>
           Join my{" "}
           <a
