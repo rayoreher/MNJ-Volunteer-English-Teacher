@@ -1,8 +1,8 @@
 {
-  "name": "2048-in-react",
+  "name": "mnj-volunteer-english-teacher",
   "version": "0.2.0",
-  "homepage": "https://mateuszsokola.github.io/2048-in-react/",
-  "author": "Mateusz Sokola (https://mateu.sh/)",
+  "homepage": "https://rayoreher.github.io/MNJ-Volunteer-English-Teacher/",
+  "author": "Ray Orellana (https://www.rayoreher.com/)",
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
@@ -15,14 +15,19 @@
     "test-coverage": "jest --coverage --verbose"
   },
   "dependencies": {
+    "@supabase/auth-helpers-nextjs": "^0.10.0",
+    "@supabase/auth-helpers-react": "^0.5.0",
+    "@supabase/supabase-js": "^2.46.0",
     "@types/node": "20.5.1",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
+    "bootstrap": "^5.3.3",
     "eslint": "8.47.0",
     "eslint-config-next": "14.0.4",
     "lodash": "4.17.21",
     "next": "14.2.7",
     "react": "18.2.0",
+    "react-bootstrap": "^2.10.5",
     "react-dom": "18.2.0",
     "react-responsive": "9.0.2",
     "typescript": "5.1.6",
