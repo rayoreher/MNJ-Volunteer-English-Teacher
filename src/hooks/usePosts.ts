@@ -42,7 +42,7 @@ const useGetPosts = () => {
         author: user.id,
       })
       .select()
-      .single();
+      .single<Post>();
     if (error) throw error;
     return data;
   };
