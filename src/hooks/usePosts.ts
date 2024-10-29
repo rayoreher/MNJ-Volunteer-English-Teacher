@@ -17,7 +17,8 @@ const useGetPosts = () => {
         const { data, error } = await supabase
           .from('posts')
           .select('*')
-          .limit(limit || 50);
+          .limit(limit || 50)
+          .returns<Post[]>();
         if (error) throw error;
         setPosts(data || []);
       } catch (error) {

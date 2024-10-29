@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import PostEditForm from '@/components/PostEditForm';
 import usePosts from '@/hooks/usePosts';
 import { useRouter } from 'next/router';
+import { Database } from '@/types/database.types';
 
 type Props = {
   post: Post;
@@ -21,7 +22,7 @@ const PostPage = () => {
   const { updatePost } = usePosts();
   const [post, setPost] = useState<Post | undefined>(undefined);
   const [loading, setLoading] = useState(true);
-  const supabase = createClientComponentClient();
+  const supabase = createClientComponentClient<Database>();
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -30,10 +31,10 @@ const PostPage = () => {
           .from('posts')
           .select('*')
           .eq('id', router.query.id)
-          .single();
+          .single<Post>();
         
         if (data) {
-          setPost(data as any);
+          setPost(data);
         }
         setLoading(false);
       }
