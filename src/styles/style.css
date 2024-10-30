@@ -691,6 +691,7 @@ figure {
 #fh5co-portfolio {
   padding: 7em 0;
   min-height: 500px;
+  background: rgba(0, 0, 0, 0.04);
 }
 @media screen and (max-width: 768px) {
   #fh5co-portfolio {
@@ -1471,5 +1472,8 @@ figure {
   height: 100%;
   z-index: 9999;
 }
-
-/*# sourceMappingURL=style.css.map */
+.img-responsive {
+  position: relative !important; 
+  max-height: 200px;
+  min-height: 200px;
+}

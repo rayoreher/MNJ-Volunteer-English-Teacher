@@ -4,7 +4,7 @@ const Menu = () => {
 			<div className="container">
 				<div className="nav-header">
 					<a href="#" className="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
-					<h1 id="fh5co-logo">Charity</h1>
+					<h1 id="fh5co-logo">MNJ Volunteer</h1>
 					<nav id="fh5co-menu-wrap" role="navigation">
 						<ul className="sf-menu" id="fh5co-primary-menu">
 							<li className="active">
