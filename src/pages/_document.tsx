@@ -5,8 +5,13 @@ export default function Document() {
     <Html lang="en">
       <Head />
       <body>
-        <Main />
-        <NextScript />
+        <div id="fh5co-wrapper">
+          <div id="fh5co-page">
+            <Main />
+            <NextScript />
+          </div>
+
+        </div>
       </body>
     </Html>
   )
