@@ -29,3 +29,4 @@ as permissive
 for delete
 to public
 using ((auth.uid() = author));
+
