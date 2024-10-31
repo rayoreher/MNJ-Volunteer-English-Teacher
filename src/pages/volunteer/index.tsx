@@ -399,7 +399,7 @@ export function Home() {
               <div>
                 <FormLabel>Captcha Verification *</FormLabel>
                 <HCaptcha
-                  sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY!}
+                  sitekey="8d122f86-7d3a-47ae-b190-745caf085fe6"
                   onVerify={onCaptchaVerify}
                   onExpire={onCaptchaExpire}
                   ref={hcaptchaRef}
