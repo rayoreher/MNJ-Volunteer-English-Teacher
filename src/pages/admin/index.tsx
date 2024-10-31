@@ -1,14 +1,76 @@
-import withAuth from "@/hooks/with-auth";
+import { DataTable } from "@/components/ui/data-table";
+import { ColumnDef } from "@tanstack/react-table";
 
+
+export const columns: ColumnDef<Volunteer>[] = [
+  {
+    accessorKey: "fullname",
+    header: "Fullname",
+  },
+  {
+    accessorKey: "email",
+    header: "Email",
+  },
+  {
+    accessorKey: "age",
+    header: "Age",
+  },
+  {
+    accessorKey: "nationality",
+    header: "Nationality",
+  },
+  {
+    accessorKey: "",
+    header: "Details",
+    cell: ({ row }) => (
+      <Dialog>
+        <DialogTrigger>Show Details</DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{row.original.fullname}</DialogTitle>
+            <DialogDescription>
+              <VolunteerDetails {...row.original} />
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+    ),
+  },
+];
+
+import withAuth from "@/hooks/with-auth";
+import { useEffect, useState } from "react";
+import { Database } from "@/types/database.types";
+import { supabase } from "@/lib/supabase-client";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import VolunteerDetails from "@/components/VolunteerDetails";
+import { Volunteer } from "@/types/Volunteer";
 const AdminDashboard = () => {
+  const [data, setData] = useState<Volunteer[]>([]);
+  useEffect(() => {
+    const getSession = async () => {
+      const { data, error } = await supabase
+        .from("volunteers")
+        .select("*")
+        .order("created_at", { ascending: false });
+      setData(data || []);
+    };
+
+    getSession();
+  }, []);
+
   return (
-      <div>
-        <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
-        <p>
-          Welcome to the admin dashboard. Please select a section from the menu.
-        </p>
-      </div>
+    <div className="container mx-auto py-10">
+      <DataTable columns={columns} data={data} key="id" />
+    </div>
   );
-}
+};
 
 export default withAuth(AdminDashboard);
