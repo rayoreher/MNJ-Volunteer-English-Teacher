@@ -1,13 +1,16 @@
-import Image from "next/image"
-import Link from "next/link"
+import Image from "next/image";
+import Link from "next/link";
 
 export default function GallerySection() {
   return (
     <div className="container mx-auto px-4 py-12 bg-white">
       <div className="text-center max-w-2xl mx-auto mb-8">
-        <h2 className="text-4xl font-semibold mb-4 text-lime-600">Our Impact in Action</h2>
+        <h2 className="text-4xl font-semibold mb-4 text-lime-600">
+          Our Impact in Action
+        </h2>
         <p className="text-xl text-lime-600 mb-8">
-			See the smiles and growth our volunteers bring to Mae Najang. Explore moments of learning, joy, and connection.
+          See the smiles and growth our volunteers bring to Mae Najang. Explore
+          moments of learning, joy, and connection.
         </p>
         <div className="w-40 h-1 bg-lime-500 mx-auto rounded-full"></div>
       </div>
@@ -52,14 +55,14 @@ export default function GallerySection() {
         </div>
       </div>
 
-      <div className="text-center">
-	  <Link
+      {/* <div className="text-center">
+        <Link
           href="#"
           className="bg-lime-600 text-white px-7 py-4 rounded-md font-semibold text-lg hover:bg-lime-500 transition duration-300"
         >
           SEE GALLERY
         </Link>
-      </div>
+      </div> */}
     </div>
-  )
+  );
 }

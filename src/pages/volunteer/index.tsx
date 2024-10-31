@@ -31,6 +31,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { supabase } from "@/lib/supabase-client";
+import Head from "next/head";
 
 const formSchema = z
   .object({
@@ -130,7 +131,12 @@ export function Home() {
     form.trigger("token");
   }
   return (
-    <div className="container mx-auto p-6 space-y-8">
+    <>
+      <Head>
+        <title>MNJ Volunteer English Teacher - Vounteer</title>
+        <meta name="description" content="Website for the MNJ Volunteer English Teacher project" />
+      </Head>
+      <div className="container mx-auto p-6 space-y-8">
       <div className="grid md:grid-cols-2 gap-8">
         <Card className="bg-lime-50">
           <CardHeader>
@@ -414,6 +420,7 @@ export function Home() {
         </CardContent>
       </Card>
     </div>
+    </>
   );
 }
 export default Home;
