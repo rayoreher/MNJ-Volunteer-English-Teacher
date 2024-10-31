@@ -1,7 +1,8 @@
 import { Database } from "@/types/database.types";
 import { createClient } from "@supabase/supabase-js";
+import { variables } from "./variables";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const { supabaseUrl, supabaseAnonKey } = variables;
+console.log(variables);
 
 export const supabase = createClient<Database>(supabaseUrl!, supabaseAnonKey!);

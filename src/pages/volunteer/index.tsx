@@ -32,6 +32,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { supabase } from "@/lib/supabase-client";
 import Head from "next/head";
+import { variables } from "@/lib/variables";
 
 const formSchema = z
   .object({
@@ -82,6 +83,9 @@ const formSchema = z
   );
 
 export function Home() {
+  const { hCaptchaSiteKey } = variables;
+  console.log(hCaptchaSiteKey);
+  
   const hcaptchaRef = useRef<HCaptcha | null>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -399,7 +403,7 @@ export function Home() {
               <div>
                 <FormLabel>Captcha Verification *</FormLabel>
                 <HCaptcha
-                  sitekey="8d122f86-7d3a-47ae-b190-745caf085fe6"
+                  sitekey={hCaptchaSiteKey!}
                   onVerify={onCaptchaVerify}
                   onExpire={onCaptchaExpire}
                   ref={hcaptchaRef}
