@@ -30,8 +30,8 @@ const Header = () => {
         <div className="container mx-auto px-4 py-1 flex justify-end space-x-4">
           {/* <Link href="#" className="hover:text-lime-200"><Facebook size={20} /></Link>
           <Link href="#" className="hover:text-lime-200"><Twitter size={20} /></Link> */}
-          <Link href="#" className="hover:text-lime-200"><Instagram size={20} /></Link>
-          <Link href="#" className="hover:text-lime-200"><Youtube size={20} /></Link>
+          <Link href="https://www.instagram.com/freedomnoppadon?igsh=a2EwaGpveHl0cnJv" target="_blank" className="hover:text-lime-200"><Instagram size={20} /></Link>
+          {/* <Link href="#" className="hover:text-lime-200"><Youtube size={20} /></Link> */}
         </div>
       </div>
 
