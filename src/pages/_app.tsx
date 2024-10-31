@@ -1,27 +1,11 @@
-import '@/styles/bootstrap.css';
 import '@/styles/globals.css';
-import '@/styles/animate.css';
-import '@/styles/icomoon.css';
-import '@/styles/superfish.css';
-import '@/styles/style.css';
 import type { AppProps } from 'next/app';
-import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
-import { SessionContextProvider, Session } from '@supabase/auth-helpers-react';
-import { useState } from 'react';
+import Layout from '@/components/Layout';
 
-export default function App({
-  Component,
-  pageProps,
-}: AppProps<{
-  initialSession: Session;
-}>) {
-  const [supabaseClient] = useState(() => createPagesBrowserClient());
+export default function App({ Component, pageProps }: AppProps) {
   return (
-    <SessionContextProvider
-      supabaseClient={supabaseClient}
-      initialSession={pageProps.initialSession}
-    >
+    <Layout>
       <Component {...pageProps} />
-    </SessionContextProvider>
+    </Layout>
   );
 }

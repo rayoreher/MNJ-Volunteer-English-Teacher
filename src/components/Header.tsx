@@ -1,36 +1,82 @@
-import useSignIn from '@/hooks/useSignIn';
-import { useUser } from '@supabase/auth-helpers-react';
-import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
-import SignupModal from './SignupModal';
+import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
+import { ChevronDown, Facebook, Instagram, Menu, Twitter, X, Youtube } from 'lucide-react';
 
 const Header = () => {
-  const user = useUser();
-  const [showModal, setShowModal] = useState(false);
-  const { signOut } = useSignIn();
-  const handleLogout = async () => {
-    await signOut();
-  };
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const sideMenuRef = useRef<HTMLDivElement>(null)
+  const toggleButtonRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        sideMenuRef.current &&
+        !sideMenuRef.current.contains(event.target as Node) &&
+        !toggleButtonRef.current?.contains(event.target as Node)
+      ) {
+        setIsMobileMenuOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
+
   return (
     <>
-      <SignupModal show={showModal} handleClose={() => setShowModal(false)} />
-      <Navbar bg="light">
-        <Container>
-          <Navbar.Brand href="#home">My Supabase blog</Navbar.Brand>
-          <Navbar.Toggle />
-          <Navbar.Collapse className="justify-content-end">
-            {user ? (
-              <Button variant="link" onClick={handleLogout}>
-                Logout
-              </Button>
-            ) : (
-              <Button onClick={() => setShowModal(true)}>Login</Button>
-            )}
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+      <div className="bg-lime-600 text-white py-2">
+        <div className="container mx-auto px-4 py-1 flex justify-end space-x-4">
+          {/* <Link href="#" className="hover:text-lime-200"><Facebook size={20} /></Link>
+          <Link href="#" className="hover:text-lime-200"><Twitter size={20} /></Link> */}
+          <Link href="#" className="hover:text-lime-200"><Instagram size={20} /></Link>
+          <Link href="#" className="hover:text-lime-200"><Youtube size={20} /></Link>
+        </div>
+      </div>
+
+      {/* Sticky Header with responsive menu */}
+      <header className="bg-white shadow-md sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-8 flex justify-between items-center">
+          <Link href="/" className="text-2xl font-bold text-lime-600">MNJ Volunteer Teaching Project</Link>
+          <nav className="hidden md:flex space-x-6">
+            <Link href="/" className="text-lime-800 hover:text-lime-600">Home</Link>
+            <div className="relative group">
+              <Link href="#" className="text-lime-800 hover:text-lime-600">Get Involved <ChevronDown style={{ display: 'inline' }}/></Link>
+              <div className="absolute left-0 mt-0 hidden group-hover:block bg-white shadow-lg rounded-md w-auto min-w-max">
+                <ul className="py-2">
+                  <li><Link href="/volunteer" className="block px-4 py-2 text-lime-800 hover:text-lime-600 hover:bg-gray-100">Volunteer</Link></li>
+                  {/* <li><Link href="#" className="block px-4 py-2 text-lime-800 hover:text-lime-600 hover:bg-gray-100">Donate</Link></li> */}
+                </ul>
+              </div>
+            </div>
+            <Link href="/about" className="text-lime-800 hover:text-lime-600">About</Link>
+          </nav>
+          <button
+            ref={toggleButtonRef}
+            className="md:hidden"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+      </header>
+
+      {/* Mobile side menu */}
+      {isMobileMenuOpen && (
+        <div
+          ref={sideMenuRef}
+          className="fixed inset-y-0 right-0 w-64 bg-white shadow-lg z-50 transform transition-transform duration-300 ease-in-out"
+        >
+          <nav className="flex flex-col p-4 space-y-4">
+            <Link href="#" className="text-lime-800 hover:text-lime-600">Home</Link>
+            <Link href="#" className="text-lime-800 hover:text-lime-600">About</Link>
+            <Link href="#" className="text-lime-800 hover:text-lime-600">Programs</Link>
+            <Link href="#" className="text-lime-800 hover:text-lime-600">Donate</Link>
+            <Link href="#" className="text-lime-800 hover:text-lime-600">Contact</Link>
+          </nav>
+        </div>
+      )}
     </>
   );
 };

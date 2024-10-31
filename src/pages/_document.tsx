@@ -6,13 +6,8 @@ export default function Document() {
       <Head>
       </Head>
       <body>
-        <div id="fh5co-wrapper">
-          <div id="fh5co-page">
-            <Main />
-            <NextScript />
-          </div>
-
-        </div>
+          <Main />
+          <NextScript />
       </body>
     </Html>
   )
