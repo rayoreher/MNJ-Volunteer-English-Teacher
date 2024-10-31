@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
@@ -30,6 +30,7 @@ import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { supabase } from "@/lib/supabase-client";
 
 const formSchema = z
   .object({
@@ -80,6 +81,7 @@ const formSchema = z
   );
 
 export function Home() {
+  const hcaptchaRef = useRef<HCaptcha | null>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -93,8 +95,26 @@ export function Home() {
       foodAllergies: "",
     },
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const { error } = await supabase.from("volunteers").insert({
+      fullname: values.fullname,
+      email: values.email,
+      age: Number(values.age),
+      nationality: values.nationality,
+      medical_problems: values.medicalProblems,
+      allergies: values.foodAllergies,
+      start_date: format(values.startDate, "yyyy-MM-dd"),
+      end_date: format(values.endDate, "yyyy-MM-dd"),
+      status: "pending",
+    });
+    if (hcaptchaRef.current) {
+      hcaptchaRef.current?.resetCaptcha();
+    }
+    if (error) {
+      console.log(error);
+    }
+
+    form.reset();
   }
   const startDate = form.watch("startDate");
   useEffect(() => {
@@ -376,6 +396,7 @@ export function Home() {
                   sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY!}
                   onVerify={onCaptchaVerify}
                   onExpire={onCaptchaExpire}
+                  ref={hcaptchaRef}
                 />
                 <FormMessage />
               </div>
