@@ -69,11 +69,9 @@ const Header = () => {
           className="fixed inset-y-0 right-0 w-64 bg-white shadow-lg z-50 transform transition-transform duration-300 ease-in-out"
         >
           <nav className="flex flex-col p-4 space-y-4">
-            <Link href="#" className="text-lime-800 hover:text-lime-600">Home</Link>
-            <Link href="#" className="text-lime-800 hover:text-lime-600">About</Link>
-            <Link href="#" className="text-lime-800 hover:text-lime-600">Programs</Link>
-            <Link href="#" className="text-lime-800 hover:text-lime-600">Donate</Link>
-            <Link href="#" className="text-lime-800 hover:text-lime-600">Contact</Link>
+            <Link href="/" className="text-lime-800 hover:text-lime-600">Home</Link>
+            <Link href="/about" className="text-lime-800 hover:text-lime-600">About</Link>
+            <Link href="/volunteer" className="text-lime-800 hover:text-lime-600">Volunteer</Link>
           </nav>
         </div>
       )}

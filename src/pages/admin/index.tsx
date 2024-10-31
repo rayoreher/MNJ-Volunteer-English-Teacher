@@ -1,8 +1,6 @@
 import withAuth from "@/hooks/with-auth";
 
 const AdminDashboard = () => {
-
-  console.log('ciao');
   return (
       <div>
         <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
