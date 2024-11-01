@@ -1,4 +1,4 @@
-import { Volunteer } from "@/types/Volunteer"
+import { Volunteer } from "../types/Volunteer";
 
 export default function VolunteerDetails(volunteer: Volunteer) {
   const totalDays = Math.round((new Date(volunteer.end_date).getTime() - new Date(volunteer.start_date).getTime()) / (1000 * 60 * 60 * 24))
