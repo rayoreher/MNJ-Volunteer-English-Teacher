@@ -1,6 +1,6 @@
-import { Volunteer, VolunteerStatus } from "@/types/Volunteer"
+import { Database } from "@/types/database.types";
 
-
+export type Volunteer = Database["public"]["Tables"]["volunteers"]["Row"];
 export default function VolunteerDetails(volunteer: Volunteer) {
   const totalDays = Math.round((new Date(volunteer.end_date).getTime() - new Date(volunteer.start_date).getTime()) / (1000 * 60 * 60 * 24))
 

@@ -11,8 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import VolunteerDetails from "@/components/VolunteerDetails";
-import { Volunteer } from "@/types/Volunteer";
+import VolunteerDetails, { Volunteer } from "@/components/VolunteerDetails";
 
 export const columns: ColumnDef<Volunteer>[] = [
   {
