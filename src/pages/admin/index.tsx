@@ -1,6 +1,18 @@
 import { DataTable } from "@/components/ui/data-table";
 import { ColumnDef } from "@tanstack/react-table";
-
+import withAuth from "@/hooks/with-auth";
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase-client";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import VolunteerDetails from "@/components/VolunteerDetails";
+import { Volunteer } from "@/types/Volunteer";
 
 export const columns: ColumnDef<Volunteer>[] = [
   {
@@ -38,20 +50,6 @@ export const columns: ColumnDef<Volunteer>[] = [
   },
 ];
 
-import withAuth from "@/hooks/with-auth";
-import { useEffect, useState } from "react";
-import { Database } from "@/types/database.types";
-import { supabase } from "@/lib/supabase-client";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import VolunteerDetails from "@/components/VolunteerDetails";
-import { Volunteer } from "@/types/Volunteer";
 const AdminDashboard = () => {
   const [data, setData] = useState<Volunteer[]>([]);
   useEffect(() => {
