@@ -61,17 +61,15 @@ const Header = () => {
           </button>
         </div>
       </header>
-
-      {/* Mobile side menu */}
       {isMobileMenuOpen && (
         <div
           ref={sideMenuRef}
           className="fixed inset-y-0 right-0 w-64 bg-white shadow-lg z-50 transform transition-transform duration-300 ease-in-out"
         >
           <nav className="flex flex-col p-4 space-y-4">
-            <Link href="/" className="text-lime-800 hover:text-lime-600">Home</Link>
-            <Link href="/about" className="text-lime-800 hover:text-lime-600">About</Link>
-            <Link href="/volunteer" className="text-lime-800 hover:text-lime-600">Volunteer</Link>
+            <Link href="/" className="text-lime-800 hover:text-lime-600" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
+            <Link href="/about" className="text-lime-800 hover:text-lime-600" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
+            <Link href="/volunteer" className="text-lime-800 hover:text-lime-600" onClick={() => setIsMobileMenuOpen(false)}>Volunteer</Link>
           </nav>
         </div>
       )}
