@@ -1,19 +1,17 @@
-// components/Layout.tsx
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
-import { ReactNode } from 'react';
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import { useRouter } from "next/router";
+import { ReactNode, useEffect, useState } from "react";
 
-interface LayoutProps {
-  children: ReactNode;
-}
+const Layout = ({ children }: { children: ReactNode }) => {
+  const router = useRouter();
 
-const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-grow">{children}</main>
-      <Footer />
-    </div>
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-grow">{children}</main>
+        <Footer />
+      </div>
   );
 };
 

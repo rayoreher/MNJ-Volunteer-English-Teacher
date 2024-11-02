@@ -84,8 +84,6 @@ const formSchema = z
 
 export function Home() {
   const { hCaptchaSiteKey } = variables;
-  console.log(hCaptchaSiteKey);
-  
   const hcaptchaRef = useRef<HCaptcha | null>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
