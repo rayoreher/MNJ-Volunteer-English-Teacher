@@ -50,7 +50,7 @@ const data = {
       items: [
         {
           title: "Installation",
-          url: "#",
+          url: "/admin",
         },
         {
           title: "Project Structure",
@@ -292,7 +292,7 @@ function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                             asChild
                             isActive={item.isActive}
                           >
-                            <a href={item.url}>{item.title}</a>
+                            <Link href={item.url}>{item.title}</Link>
                           </SidebarMenuSubButton>
                         </SidebarMenuSubItem>
                       ))}
