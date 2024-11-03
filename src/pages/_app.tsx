@@ -16,12 +16,9 @@ export default function App({ Component, pageProps }: AppProps) {
     const handleRouteChangeStart = (url: string) => {
       const isAdmin = url.startsWith("/MNJ-Volunteer-English-Teacher/admin");
       setLayout(isAdmin ? () => AdminLayout : () => DefaultLayout);
-      console.log(isAdmin, "ciao");
-      console.log(`Starting to navigate to ${url}`);
     };
 
     const handleRouteChangeComplete = (url: string) => {
-      console.log(`Finished navigating to ${url}`);
     };
 
     router.events.on("routeChangeStart", handleRouteChangeStart);
