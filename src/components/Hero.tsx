@@ -6,7 +6,7 @@ const Hero = () => {
       className="relative text-white min-h-[calc(100vh-9rem)] flex items-center justify-center"
       style={{
         backgroundImage:
-          'url("/MNJ-Volunteer-English-Teacher/images/cover_bg_1.jpg")',
+          'url("images/cover_bg_1.jpg")',
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}

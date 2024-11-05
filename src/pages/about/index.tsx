@@ -79,7 +79,7 @@ export default function VolunteerTeachingProject() {
       <section className="mb-16">
         <div className="relative h-96 rounded-lg overflow-hidden">
           <Image
-            src="/MNJ-Volunteer-English-Teacher/images/about_section.jpg"
+            src="images/about_section.jpg"
             alt="Volunteer teachers with students"
             layout="fill"
             objectFit="cover"
