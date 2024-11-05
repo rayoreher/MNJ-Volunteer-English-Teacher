@@ -37,7 +37,7 @@ export default function App({ Component, pageProps }: AppProps) {
           name="description"
           content="Website for the MNJ Volunteer English Teacher project"
         />
-        <link rel="icon" href="/MNJ-Volunteer-English-Teacher/favicon.ico" />
+        <link rel="icon" href="favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Layout>
