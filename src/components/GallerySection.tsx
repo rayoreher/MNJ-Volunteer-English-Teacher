@@ -19,7 +19,7 @@ export default function GallerySection() {
         {/* First row */}
         <div className="col-span-12 md:col-span-8 relative group aspect-video overflow-hidden rounded">
           <Image
-            src="/MNJ-Volunteer-English-Teacher/images/cover_bg_1.jpg"
+            src="images/cover_bg_1.jpg"
             alt="Gallery image"
             className="object-cover transition-transform group-hover:scale-105"
             fill
@@ -28,7 +28,7 @@ export default function GallerySection() {
 
         <div className="col-span-12 md:col-span-4 relative group overflow-hidden rounded">
           <Image
-            src="/MNJ-Volunteer-English-Teacher/images/cover_bg_2.jpg"
+            src="images/cover_bg_2.jpg"
             alt="Gallery image"
             className="object-cover transition-transform group-hover:scale-105"
             fill
@@ -38,7 +38,7 @@ export default function GallerySection() {
         {/* Second row */}
         <div className="col-span-12 md:col-span-4 relative group overflow-hidden rounded">
           <Image
-            src="/MNJ-Volunteer-English-Teacher/images/cover_bg_4.jpg"
+            src="images/cover_bg_4.jpg"
             alt="Gallery image"
             className="object-cover transition-transform group-hover:scale-105"
             fill
@@ -47,7 +47,7 @@ export default function GallerySection() {
 
         <div className="col-span-12 md:col-span-8 relative group aspect-video overflow-hidden rounded">
           <Image
-            src="/MNJ-Volunteer-English-Teacher/images/cover_bg_3.0.jpg"
+            src="images/cover_bg_3.0.jpg"
             alt="Gallery image"
             className="object-cover transition-transform group-hover:scale-105"
             fill
