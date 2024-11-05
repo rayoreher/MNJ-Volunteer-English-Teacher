@@ -147,6 +147,30 @@ export type Database = {
           },
         ]
       }
+      reviews: {
+        Row: {
+          content: string
+          created_at: string
+          fullname: string
+          id: number
+          status: Database["public"]["Enums"]["review_status"]
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          fullname: string
+          id?: number
+          status?: Database["public"]["Enums"]["review_status"]
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          fullname?: string
+          id?: number
+          status?: Database["public"]["Enums"]["review_status"]
+        }
+        Relationships: []
+      }
       volunteers: {
         Row: {
           age: number
@@ -197,6 +221,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      review_status: "pending" | "accepted" | "denied"
       volunteer_status: "pending" | "done"
     }
     CompositeTypes: {

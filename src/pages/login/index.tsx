@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase-client";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -10,67 +11,98 @@ export default function Login() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    const { error, data } = await supabase.auth.signInWithOAuth(
+      {
+        provider: 'google',
+        options: {
+          redirectTo: window.location.origin + '/MNJ-Volunteer-English-Teacher/admin'
+        },
+      });
 
     if (error) {
       alert(error.message);
     } else {
-      router.push("/admin");
+      console.log(data, 'ciao');
+      
+      //router.push("/admin");
     }
   };
 
   return (
     <div className="flex items-center justify-center bg-white py-20">
-      <div className="w-full max-w-md flex-1">
-        <form
-          onSubmit={handleLogin}
-          className="bg-lime-50 shadow-md rounded px-8 pt-6 pb-8 mb-4"
-        >
-          <h2 className="text-2xl font-semibold leading-none tracking-tight text-center">Admin Login</h2>
-          <div className="mb-4">
-            <label
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              htmlFor="email"
-            >
-              Email
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="email"
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-6">
-            <label
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              htmlFor="password"
-            >
-              Password
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-              id="password"
-              type="password"
-              placeholder="******************"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <div className="flex justify-end">
-            <Button type="submit" className="bg-lime-600 hover:bg-lime-700">
-              Login
-            </Button>
-          </div>
-        </form>
-      </div>
+      <Tabs defaultValue="login" className="w-[400px]">
+        <TabsList>
+          <TabsTrigger value="login">Login</TabsTrigger>
+          <TabsTrigger value="register">Register</TabsTrigger>
+        </TabsList>
+        <TabsContent value="login">
+          <LoginForm
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+            handleLogin={handleLogin}
+          />
+        </TabsContent>
+        <TabsContent value="register">Change your password here.</TabsContent>
+      </Tabs>
+    </div>
+  );
+}
+
+function LoginForm({
+  email,
+  setEmail,
+  password,
+  setPassword,
+  handleLogin,
+}: any) {
+  return (
+    <div className="w-full max-w-md flex-1">
+      <form
+        onSubmit={handleLogin}
+        className="bg-lime-50 shadow-md rounded px-8 pt-6 pb-8 mb-4"
+      >
+        {/* <div className="mb-4">
+          <label
+            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            htmlFor="email"
+          >
+            Email
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="email"
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div className="mb-6">
+          <label
+            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            htmlFor="password"
+          >
+            Password
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+            id="password"
+            type="password"
+            placeholder="******************"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div> */}
+        <div className="flex justify-end">
+          <Button type="submit" className="bg-lime-600 hover:bg-lime-700">
+            Login
+          </Button> 
+        </div>
+      </form>
     </div>
   );
 }

@@ -12,7 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import VolunteerDetails from "@/components/VolunteerDetails";
-import { Volunteer } from "@/types/volunteer";
+import { Volunteer } from "@/types/volunteer.types";
 
 export const columns: ColumnDef<Volunteer>[] = [
   {

@@ -1,4 +1,4 @@
-import { Volunteer } from "@/types/volunteer"
+import { Volunteer } from "@/types/volunteer.types"
 
 
 export default function VolunteerDetails(volunteer: Volunteer) {
