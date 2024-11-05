@@ -81,7 +81,7 @@ export default function VolunteerTeachingProject() {
           <Image
             src="images/about_section.jpg"
             alt="Volunteer teachers with students"
-            layout="fill"
+            fill
             objectFit="cover"
             className="rounded-lg"
           />
