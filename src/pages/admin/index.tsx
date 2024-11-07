@@ -53,7 +53,12 @@ export const columns: ColumnDef<Volunteer>[] = [
 const AdminDashboard = () => {
   const [data, setData] = useState<Volunteer[]>([]);
   useEffect(() => {
+    const p = supabase.auth.getSession();
+    console.log(p);
+    
     const getSession = async () => {
+      const pp = await supabase.auth.getUser();
+      console.log(pp);
       const { data, error } = await supabase
         .from("volunteers")
         .select("*")

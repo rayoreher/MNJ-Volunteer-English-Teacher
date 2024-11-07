@@ -15,7 +15,7 @@ export default function Login() {
       {
         provider: 'google',
         options: {
-          redirectTo: window.location.origin + '/MNJ-Volunteer-English-Teacher/admin'
+          redirectTo: window.location.origin + '/admin'
         },
       });
 
