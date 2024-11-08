@@ -33,3 +33,18 @@ export const formSchema = z.object({
         });
     }
 });
+
+
+export type FormType = z.infer<typeof formSchema>;
+
+const gian: FormType = {
+    fullname: "Gian",
+    email: "gian@me.com",
+    age: "17",
+    nationality: "Italian",
+    token: "12345",
+    start_date: new Date("2022-01-01"),
+    end_date: new Date("2022-01-02"),
+    medical_problems: "None",    
+    allergies: "None",
+};

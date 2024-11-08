@@ -34,9 +34,11 @@ import { hCaptchaSiteKey } from "@/lib/variables";
 import { formSchema } from "./form.schema";
 import { z } from "zod";
 import { useFormRequest } from "./form.request";
+import { useToast } from "@/hooks/use-toast";
 
 export function Home() {
-  const { data, error, isLoading, sendRequest } = useFormRequest<z.infer<typeof formSchema>>();
+  const { toast } = useToast()
+  const { isLoading, sendRequest } = useFormRequest();
   const hcaptchaRef = useRef<HCaptcha | null>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -52,16 +54,27 @@ export function Home() {
     },
   });
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    await sendRequest(values);
-    console.log(data, error, isLoading);
+    const result = await sendRequest(values);
     
-    if (!error) {
+    if (result?.success) {
+      toast({
+        description: "Reques sended successfully.",
+        duration: 3000,
+        className: "bg-white text-lime-800 text-xl font-semibold border-0",
+      });
       hcaptchaRef.current?.resetCaptcha();
       form.reset();
       form.clearErrors();
+    } else {
+      toast({
+        variant: "destructive",
+        duration: 3000,
+        description: "There was a problem with your request.",
+        className: "text-xl font-semibold",
+      });
     }
-
   }
+
   const startDate = form.watch("start_date");
   useEffect(() => {
     form.setValue("end_date", null as any);
