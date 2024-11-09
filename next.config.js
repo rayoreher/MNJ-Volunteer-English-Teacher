@@ -5,6 +5,7 @@ const nextConfig = {
   images: {
     unoptimized: true, // Disable image optimization for static exports
   },
+  exclude: ['supabase/**/*']
 };
 
 module.exports = nextConfig;
