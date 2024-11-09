@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { ReactNode, useEffect, useState } from "react";
 import { DefaultLayout } from "@/layouts/DefaultLayout";
 import { AdminLayout } from "@/layouts/AdminLayout";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -39,6 +40,7 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <Layout>
         <Component {...pageProps} />
+        <Toaster />
       </Layout>
     </>
   );

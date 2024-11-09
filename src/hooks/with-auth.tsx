@@ -46,6 +46,7 @@ const withAuth = <P extends object>(WrappedComponent: ComponentType<P>): Compone
     useEffect(() => {
       const getSession = async () => {
         const { data: { session } } = await supabase.auth.getSession();
+        
          if (!session) {
            router.replace(`/login?redirect=${encodeURIComponent(router.asPath)}`);
          }
