@@ -31,9 +31,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import Head from "next/head";
 import { hCaptchaSiteKey } from "@/lib/variables";
-import { formSchema } from "./form.schema";
+import { formSchema } from "@/lib/schemas/form.schema";
 import { z } from "zod";
-import { useFormRequest } from "./form.request";
+import { useFormRequest } from "@/hooks/form.request";
 import { useToast } from "@/hooks/use-toast";
 
 export function Home() {

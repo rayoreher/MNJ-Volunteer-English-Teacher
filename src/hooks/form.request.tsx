@@ -1,5 +1,5 @@
 import { supabaseFunctionsUrl } from "@/lib/variables";
-import { FormType } from "./form.schema";
+import { FormType } from "../lib/schemas/form.schema";
 import { useAxios } from "@/hooks/axios";
 
 export function useFormRequest(){
