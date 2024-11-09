@@ -1,18 +1,14 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts"
 import { Hono } from 'jsr:@hono/hono';
 import volunteer from "./volunteer/index.ts";
+import { cors } from "jsr:@hono/hono/cors";
 
 const app = new Hono().basePath("api");
 
+app.use(cors({
+  origin: "*",
+}));
+
 app.route("", volunteer);
-app.post('/', async (c) => {
-  const { name } = await c.req.json();
-  return new Response(`Hello ${name}!`)
-
-});
-
-app.get('/', (c) => {
-  return new Response('Hello World!')
-});
 
 Deno.serve(app.fetch);
