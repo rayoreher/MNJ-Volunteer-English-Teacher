@@ -3,7 +3,7 @@ import { z } from "zod";
 const today = new Date();
 today.setHours(0, 0, 0, 0);
 
-export const formSchema = z.object({
+export const vlunteerFormSchema = z.object({
     fullname: z.string().min(3, "Full name must be at least 3 characters long"),
     email: z.string().email("Invalid email format"),
     age: z.string().refine((val) => !isNaN(Number(val)) && Number(val) >= 17, {
@@ -35,16 +35,4 @@ export const formSchema = z.object({
 });
 
 
-export type FormType = z.infer<typeof formSchema>;
-
-const gian: FormType = {
-    fullname: "Gian",
-    email: "gian@me.com",
-    age: "17",
-    nationality: "Italian",
-    token: "12345",
-    start_date: new Date("2022-01-01"),
-    end_date: new Date("2022-01-02"),
-    medical_problems: "None",    
-    allergies: "None",
-};
+export type VolunteerFormType = z.infer<typeof vlunteerFormSchema>;

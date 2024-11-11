@@ -46,7 +46,7 @@ const Header = () => {
               <div className="absolute left-0 mt-0 hidden group-hover:block bg-white shadow-lg rounded-md w-auto min-w-max">
                 <ul className="py-2">
                   <li><Link href="/volunteer" className="block px-4 py-2 text-lime-800 hover:text-lime-600 hover:bg-gray-100">Volunteer</Link></li>
-                  {/* <li><Link href="#" className="block px-4 py-2 text-lime-800 hover:text-lime-600 hover:bg-gray-100">Donate</Link></li> */}
+                  <li><Link href="/reviews" className="block px-4 py-2 text-lime-800 hover:text-lime-600 hover:bg-gray-100">Volunteer Stories</Link></li>
                 </ul>
               </div>
             </div>
@@ -77,6 +77,7 @@ const Header = () => {
             <Link href="/" className="text-lime-800 hover:text-lime-600" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
             <Link href="/about" className="text-lime-800 hover:text-lime-600" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
             <Link href="/volunteer" className="text-lime-800 hover:text-lime-600" onClick={() => setIsMobileMenuOpen(false)}>Volunteer</Link>
+            <Link href="/reviews" className="text-lime-800 hover:text-lime-600" onClick={() => setIsMobileMenuOpen(false)}>Volunteer Stories</Link>
           </nav>
         </div>
       )}

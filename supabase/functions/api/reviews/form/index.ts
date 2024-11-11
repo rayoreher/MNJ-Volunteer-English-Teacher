@@ -11,9 +11,10 @@ export const form = new Hono().post("form", async (c) => {
         throw new BadRequest(payload.error.message);
     }
 
-    const { token, ...volunteer } = payload.data;
+    const { token, ...review } = payload.data;
 
     const captchaResult = await validateHCaptcha(token);
+    
     if (!captchaResult) {
         throw new BadRequest("Captcha validation failed");
     }
@@ -22,7 +23,7 @@ export const form = new Hono().post("form", async (c) => {
       Deno.env.get("SUPABASE_URL") ?? "",
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "");
   
-    const { error } = await supabaseClient.from("volunteers").insert(volunteer);  
+    const { error } = await supabaseClient.from("reviews").insert(review);  
     if (error) {
         throw new BadRequest(error.message);
     }
