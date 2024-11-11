@@ -19,13 +19,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/lib/supabase-client";
 import { Review } from "@/types/review.types";
 import CreateReviewComponent from "@/components/pages/reviews/create-review";
+import TableReviewsComponent from "@/components/pages/reviews/table-reviews";
 
 export function Home() {
   const [data, setData] = useState<Review[]>([]);
   const { toast } = useToast();
   const { isLoading, sendRequest } = useReviewFormRequest();
   useEffect(() => {
-    const getSession = async () => {
+    const getReviews = async () => {
       const { data, error } = await supabase
         .from("reviews")
         .select("*")
@@ -33,7 +34,7 @@ export function Home() {
       setData(data || []);
     };
 
-    getSession();
+    getReviews();
   }, []);
   const hcaptchaRef = useRef<HCaptcha | null>(null);
   const form = useForm<ReviewFormType>({
@@ -116,32 +117,7 @@ export function Home() {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="tab_1">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                <Card key={1} className="flex flex-col h-full">
-                  <CardHeader>
-                    <div className="flex justify-between items-center">
-                      <CardTitle className="text-2xl text-lime-700">
-                        {"review.title"}
-                      </CardTitle>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="flex-grow">
-                    <p className="text-lime-900 mb-4">{"review.description"}</p>
-                  </CardContent>
-                </Card>
-                <Card key={11} className="flex flex-col h-full">
-                  <CardHeader>
-                    <div className="flex justify-between items-center">
-                      <CardTitle className="text-2xl text-lime-700">
-                        {"review.title"}
-                      </CardTitle>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="flex-grow">
-                    <p className="text-lime-900 mb-4">{"review.description"}</p>
-                  </CardContent>
-                </Card>
-              </div>
+              <TableReviewsComponent data={data}></TableReviewsComponent>
             </TabsContent>
             <TabsContent value="tab_2">
               <CreateReviewComponent
