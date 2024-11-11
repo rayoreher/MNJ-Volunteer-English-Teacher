@@ -32,7 +32,7 @@ import { useForm } from "react-hook-form";
 import Head from "next/head";
 import { hCaptchaSiteKey } from "@/lib/variables";
 import { vlunteerFormSchema, VolunteerFormType } from "@/lib/schemas/volunteer-form.schema";
-import { useVolunteerFormRequest } from "@/hooks/vounteer-form.request";
+import { useVolunteerFormRequest } from "@/hooks/requests/vounteer-form.request";
 import { useToast } from "@/hooks/use-toast";
 
 export function Home() {
