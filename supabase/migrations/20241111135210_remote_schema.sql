@@ -1,11 +1,3 @@
-drop policy "everyone can create" on "public"."reviews";
-
-drop policy "everyone can read" on "public"."reviews";
-
-drop policy "only logged in users can delete" on "public"."reviews";
-
-drop policy "only logged in users can edit" on "public"."reviews";
-
 drop policy "everyone can create" on "public"."volunteers";
 
 alter table "public"."reviews" drop column "content";
