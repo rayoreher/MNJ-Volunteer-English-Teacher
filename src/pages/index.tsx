@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <>
       <Head>
-        <title>MNJ Volunteer English Teacher.</title>
+        <title>MNJ Volunteer English Teacher</title>
       </Head>
       <Main />
     </>
