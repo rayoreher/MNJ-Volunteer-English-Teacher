@@ -61,7 +61,6 @@ export function Home() {
         duration: 3000,
         className: "bg-white text-lime-800 text-xl font-semibold border-0",
       });
-      hcaptchaRef.current?.resetCaptcha();
       form.reset();
       form.clearErrors();
     } else {
@@ -72,6 +71,8 @@ export function Home() {
         className: "text-xl font-semibold",
       });
     }
+
+    hcaptchaRef.current?.resetCaptcha();
   }
 
   const startDate = form.watch("start_date");

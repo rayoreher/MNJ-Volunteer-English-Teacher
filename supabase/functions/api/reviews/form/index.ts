@@ -14,6 +14,7 @@ export const form = new Hono().post("form", async (c) => {
     const { token, ...review } = payload.data;
 
     const captchaResult = await validateHCaptcha(token);
+    
     if (!captchaResult) {
         throw new BadRequest("Captcha validation failed");
     }
@@ -22,7 +23,7 @@ export const form = new Hono().post("form", async (c) => {
       Deno.env.get("SUPABASE_URL") ?? "",
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "");
   
-    const { error } = await supabaseClient.from("volunteers").insert(review);  
+    const { error } = await supabaseClient.from("reviews").insert(review);  
     if (error) {
         throw new BadRequest(error.message);
     }
@@ -32,19 +33,3 @@ export const form = new Hono().post("form", async (c) => {
       { status: 200 },
     );
 });
-
-// async function validateHCaptcha(token: string): Promise<boolean> {
-//   const SECRET_KEY = Deno.env.get("HCAPTCHA_SECRET")!;  
-//   const response = await fetch("https://hcaptcha.com/siteverify", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/x-www-form-urlencoded",
-//     },
-//     body: new URLSearchParams({
-//       secret: SECRET_KEY,
-//       response: token,
-//     }),
-//   });
-//   const data = await response.json();
-//   return data.success;
-// }
