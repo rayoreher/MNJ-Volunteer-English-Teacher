@@ -93,7 +93,7 @@ interface TableReviewsComponentProps {
   data: Review[];
 }
 
-export default function TableReviewsComponent({
+export default function ShowReviewsComponent({
   data = [],
 }: TableReviewsComponentProps) {
   return (

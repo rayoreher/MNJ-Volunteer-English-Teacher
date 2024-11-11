@@ -1,11 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import Head from "next/head";
@@ -19,23 +14,29 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/lib/supabase-client";
 import { Review } from "@/types/review.types";
 import CreateReviewComponent from "@/components/pages/reviews/create-review";
-import TableReviewsComponent from "@/components/pages/reviews/table-reviews";
+import ShowReviewsComponent from "@/components/pages/reviews/show-reviews";
 
 export function Home() {
   const [data, setData] = useState<Review[]>([]);
   const { toast } = useToast();
+  const [isFetching, setIsFetching] = useState(false);
   const { isLoading, sendRequest } = useReviewFormRequest();
-  useEffect(() => {
-    const getReviews = async () => {
-      const { data, error } = await supabase
-        .from("reviews")
-        .select("*")
-        .order("created_at", { ascending: false });
-      setData(data || []);
-    };
+  const fetchReviews = useCallback(async () => {
+    setIsFetching(true);
+    const { data, error } = await supabase
+      .from("reviews")
+      .select("*")
+      .eq('status', 'accepted')
+      .order("created_at", { ascending: false });
 
-    getReviews();
+    setData(data || []);
+    setIsFetching(false);
   }, []);
+
+  useEffect(() => {
+    fetchReviews();
+  }, [fetchReviews]);
+
   const hcaptchaRef = useRef<HCaptcha | null>(null);
   const form = useForm<ReviewFormType>({
     resolver: zodResolver(reviewFormSchema),
@@ -50,7 +51,7 @@ export function Home() {
 
     if (result?.success) {
       toast({
-        description: "Reques sended successfully.",
+        description: "Changes saved successfully.",
         duration: 3000,
         className: "bg-white text-lime-800 text-xl font-semibold border-0",
       });
@@ -106,6 +107,7 @@ export function Home() {
               <TabsTrigger
                 className="data-[state=active]:bg-lime-500 data-[state=active]:text-white"
                 value="tab_1"
+                onClick={() => fetchReviews()}
               >
                 Testimonials
               </TabsTrigger>
@@ -117,7 +119,11 @@ export function Home() {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="tab_1">
-              <TableReviewsComponent data={data}></TableReviewsComponent>
+              {isFetching ? (
+                <p>Loading reviews...</p>
+              ) : (
+                <ShowReviewsComponent data={data} />
+              )}
             </TabsContent>
             <TabsContent value="tab_2">
               <CreateReviewComponent

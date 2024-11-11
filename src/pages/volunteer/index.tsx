@@ -57,7 +57,7 @@ export function Home() {
     
     if (result?.success) {
       toast({
-        description: "Reques sended successfully.",
+        description: "Changes saved successfully.",
         duration: 3000,
         className: "bg-white text-lime-800 text-xl font-semibold border-0",
       });

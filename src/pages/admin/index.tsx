@@ -13,6 +13,10 @@ import {
 } from "@/components/ui/dialog";
 import VolunteerDetails from "@/components/VolunteerDetails";
 import { Volunteer } from "@/types/volunteer.types";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Review, ReviewStatus } from "@/types/review.types";
+import ReviewListComponent from "@/components/pages/admin/reviews-list";
+import { toast } from "@/hooks/use-toast";
 
 export const columns: ColumnDef<Volunteer>[] = [
   {
@@ -51,23 +55,89 @@ export const columns: ColumnDef<Volunteer>[] = [
 ];
 
 const AdminDashboard = () => {
-  const [data, setData] = useState<Volunteer[]>([]);
-  useEffect(() => {
-    const getSession = async () => {
-      const { data, error } = await supabase
-        .from("volunteers")
-        .select("*")
-        .order("created_at", { ascending: false });
-      setData(data || []);
-    };
+  const [isFetching, setIsFetching] = useState(false);
+  const [volunteers, setVolunteers] = useState<Volunteer[]>([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const handleReviewUpdate = async (review: Review, newStatus: ReviewStatus) => {
+    setIsFetching(true);
+    const { data, error } = await supabase
+      .from("reviews")
+      .update({ status:  newStatus})
+      .eq("id", review.id)
+      .select();
 
-    getSession();
+    if (error) {
+      toast({
+        variant: "destructive",
+        duration: 3000,
+        description: "There was a problem with your request.",
+        className: "text-xl font-semibold",
+      });
+    } else {
+      toast({
+        description: "Changes saved successfully.",
+        duration: 3000,
+        className: "bg-white text-lime-800 text-xl font-semibold border-0",
+      });
+      await getReviews();
+    }
+
+    setIsFetching(false);
+  };
+
+  useEffect(() => {
+    getVolunteers();
   }, []);
 
+  useEffect(() => {
+    getReviews();
+  }, []);
+
+  const getVolunteers = async () => {
+    const { data, error } = await supabase
+      .from("volunteers")
+      .select("*")
+      .order("created_at", { ascending: false });
+    setVolunteers(data || []);
+  };
+
+  const getReviews = async () => {
+    const { data, error } = await supabase
+      .from("reviews")
+      .select("*")
+      .order("created_at", { ascending: false });
+    setReviews(data || []);
+  };
+
   return (
-    <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={data} key="id" />
-    </div>
+    <Tabs defaultValue="tab_1" className="container w-full mx-auto">
+      <TabsList className="w-full bg-lime-100 flex justify-start">
+        <TabsTrigger
+          className="data-[state=active]:bg-lime-500 data-[state=active]:text-white"
+          value="tab_1"
+        >
+          Volunteers
+        </TabsTrigger>
+        <TabsTrigger
+          className="data-[state=active]:bg-lime-500 data-[state=active]:text-white"
+          value="tab_2"
+        >
+          Reviews
+        </TabsTrigger>
+      </TabsList>
+      <TabsContent value="tab_1">
+        {isFetching ? (
+          <p>Loading volunteers...</p>
+        ) : (
+          <div className="mx-auto">
+            <DataTable columns={columns} data={volunteers} key="id" />
+          </div>
+        )}
+      </TabsContent>
+      <TabsContent value="tab_2">
+        <ReviewListComponent data={reviews} isFetching={isFetching} onSaveClicked={handleReviewUpdate}></ReviewListComponent>
+      </TabsContent>
+    </Tabs>
   );
 };
 
