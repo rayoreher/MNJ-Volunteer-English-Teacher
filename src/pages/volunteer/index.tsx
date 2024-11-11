@@ -31,17 +31,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import Head from "next/head";
 import { hCaptchaSiteKey } from "@/lib/variables";
-import { formSchema } from "@/lib/schemas/form.schema";
-import { z } from "zod";
-import { useFormRequest } from "@/hooks/form.request";
+import { vlunteerFormSchema, VolunteerFormType } from "@/lib/schemas/volunteer-form.schema";
+import { useVolunteerFormRequest } from "@/hooks/vounteer-form.request";
 import { useToast } from "@/hooks/use-toast";
 
 export function Home() {
   const { toast } = useToast()
-  const { isLoading, sendRequest } = useFormRequest();
+  const { isLoading, sendRequest } = useVolunteerFormRequest();
   const hcaptchaRef = useRef<HCaptcha | null>(null);
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<VolunteerFormType>({
+    resolver: zodResolver(vlunteerFormSchema),
     defaultValues: {
       fullname: "",
       email: "",
@@ -53,7 +52,7 @@ export function Home() {
       allergies: "",
     },
   });
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: VolunteerFormType) {
     const result = await sendRequest(values);
     
     if (result?.success) {
@@ -97,13 +96,15 @@ export function Home() {
           content="Website for the MNJ Volunteer English Teacher project"
         />
       </Head>
-      <div className="container mx-auto p-6 space-y-8">
+      <div className="min-h-screen bg-lime-50 p-8">
+      <div className="max-w-4xl mx-auto space-y-8">
+
         <div className="grid md:grid-cols-2 gap-8">
-          <Card className="bg-lime-50">
+          <Card className="bg-white shadow-lg">
             <CardHeader>
-              <CardTitle>Volunteer Requirements</CardTitle>
+              <CardTitle className="text-2xl text-lime-700">Volunteer Requirements</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="text-lime-900 space-y-4">
               <ul className="list-disc pl-6 space-y-2">
                 <li>17 years of age or older</li>
                 <li>
@@ -118,30 +119,31 @@ export function Home() {
           </Card>
 
           <div className="space-y-6">
-            <Card className="bg-lime-50">
+            <Card className="bg-white shadow-lg">
               <CardHeader>
-                <CardTitle>What are you paying for?</CardTitle>
+                <CardTitle className="text-2xl text-lime-700">What are you paying for?</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="text-lime-900 space-y-4">
                 <p>
                   The van to go to the village you have to book by yourself.{" "}
+                  Book the ticket from Chiang Mai to Khun Yuam {" "}
                   <a
                     href="https://premprachatransports.com/welcome/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-lime-700 hover:underline"
+                    className="text-lime-500 hover:underline"
                   >
-                    Book the ticket from Chiang Mai to Khun Yuam here
+                    here
                   </a>
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="bg-lime-50">
+            <Card className="bg-white shadow-lg">
               <CardHeader>
-                <CardTitle>What you will get</CardTitle>
+                <CardTitle className="text-2xl text-lime-700">What you will get</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="text-lime-900 space-y-4">
                 <ul className="list-disc pl-6 space-y-2">
                   <li>Free accommodation (stay in the school)</li>
                   <li>Food 3 meals a day</li>
@@ -151,9 +153,9 @@ export function Home() {
           </div>
         </div>
 
-        <Card className="bg-lime-50">
+        <Card className="bg-white shadow-lg">
           <CardHeader>
-            <CardTitle>Volunteer Application Form</CardTitle>
+            <CardTitle className="text-2xl text-lime-700">Volunteer Application Form</CardTitle>
             <CardDescription>
               Please fill out all required information below
             </CardDescription>
@@ -162,16 +164,16 @@ export function Home() {
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-6"
+                className="space-y-4"
               >
                 <FormField
                   control={form.control}
                   name="fullname"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Full Name *</FormLabel>
+                      <FormLabel className="text-lime-700">Full Name *</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter your full name" {...field} />
+                        <Input className="border-lime-300 focus:border-lime-500" placeholder="Enter your full name" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -183,13 +185,14 @@ export function Home() {
                   name="age"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Age *</FormLabel>
+                      <FormLabel className="text-lime-700">Age *</FormLabel>
                       <FormControl>
                         <Input
                           type="number"
                           min={17}
                           placeholder="Enter your age"
                           {...field}
+                          className="border-lime-300 focus:border-lime-500"
                         />
                       </FormControl>
                       <FormMessage />
@@ -202,11 +205,12 @@ export function Home() {
                   name="nationality"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Nationality *</FormLabel>
+                      <FormLabel className="text-lime-700">Nationality *</FormLabel>
                       <FormControl>
                         <Input
                           placeholder="Enter your nationality"
                           {...field}
+                          className="border-lime-300 focus:border-lime-500"
                         />
                       </FormControl>
                       <FormMessage />
@@ -219,9 +223,9 @@ export function Home() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email *</FormLabel>
+                      <FormLabel className="text-lime-700">Email *</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter your email" {...field} />
+                        <Input className="border-lime-300 focus:border-lime-500" placeholder="Enter your email" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -234,14 +238,14 @@ export function Home() {
                     name="start_date"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
-                        <FormLabel>Start Date *</FormLabel>
+                        <FormLabel className="text-lime-700">Start Date *</FormLabel>
                         <Popover>
                           <PopoverTrigger asChild>
                             <FormControl>
                               <Button
                                 variant={"outline"}
                                 className={cn(
-                                  "pl-3 text-left font-normal",
+                                  "border-lime-300 focus:border-lime-500 pl-3 text-left font-normal",
                                   !field.value && "text-muted-foreground",
                                 )}
                               >
@@ -289,14 +293,14 @@ export function Home() {
                     name="end_date"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
-                        <FormLabel>End Date *</FormLabel>
+                        <FormLabel className="text-lime-700">End Date *</FormLabel>
                         <Popover>
                           <PopoverTrigger asChild>
                             <FormControl>
                               <Button
                                 variant={"outline"}
                                 className={cn(
-                                  "pl-3 text-left font-normal",
+                                  "border-lime-300 focus:border-lime-500 pl-3 text-left font-normal",
                                   !field.value && "text-muted-foreground",
                                 )}
                               >
@@ -332,11 +336,11 @@ export function Home() {
                   name="medical_problems"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Do you have any medical problems?</FormLabel>
+                      <FormLabel className="text-lime-700">Do you have any medical problems?</FormLabel>
                       <FormControl>
                         <Textarea
                           placeholder="Please describe any medical conditions we should be aware of"
-                          className="resize-none"
+                          className="border-lime-300 focus:border-lime-500 resize-none"
                           {...field}
                         />
                       </FormControl>
@@ -350,11 +354,11 @@ export function Home() {
                   name="allergies"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Do you have any food allergies?</FormLabel>
+                      <FormLabel className="text-lime-700">Do you have any food allergies?</FormLabel>
                       <FormControl>
                         <Textarea
                           placeholder="Please describe any food allergies"
-                          className="resize-none"
+                          className="border-lime-300 focus:border-lime-500 resize-none"
                           {...field}
                         />
                       </FormControl>
@@ -367,7 +371,7 @@ export function Home() {
                   {form.control.getFieldState("token").invalid ? (
                     <FormLabel className="text-red-600">Captcha Verification *</FormLabel>
                   ) : (
-                    <FormLabel>Captcha Verification *</FormLabel>
+                    <FormLabel className="text-lime-700">Captcha Verification *</FormLabel>
                   )}
                   <HCaptcha
                     sitekey={hCaptchaSiteKey!}
@@ -381,7 +385,7 @@ export function Home() {
                     </FormLabel>
                   )}
                 </div>
-                <div className="flex justify-end">
+                <div>
                   <Button
                     type="submit"
                     className="bg-lime-600 hover:bg-lime-700"
@@ -395,34 +399,8 @@ export function Home() {
           </CardContent>
         </Card>
       </div>
+      </div>
     </>
   );
 }
 export default Home;
-
-async function sendPostRequest(body: z.infer<typeof formSchema>) {
-  try {
-    const response = await fetch(
-      "http://127.0.0.1:54321/functions/v1/api/volunteer/form",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      },
-    );
-
-    if (!response.ok) {
-      throw new Error(`Error! status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    console.log("Response from Edge Function:", data);
-
-    return data;
-  } catch (error) {
-    console.error("Error posting to Edge Function:", error);
-    return null;
-  }
-}

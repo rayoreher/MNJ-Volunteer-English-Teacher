@@ -1,9 +1,9 @@
 import { supabaseFunctionsUrl } from "@/lib/variables";
-import { FormType } from "../lib/schemas/form.schema";
+import { VolunteerFormType } from "../lib/schemas/volunteer-form.schema";
 import { useAxios } from "@/hooks/axios";
 
-export function useFormRequest(){
-  return useAxios<FormType, boolean>({
+export function useVolunteerFormRequest(){
+  return useAxios<VolunteerFormType, boolean>({
     url: supabaseFunctionsUrl + "/volunteer/form",
     method: "POST",
   })
